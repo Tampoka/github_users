@@ -1,3 +1,5 @@
+import {Button, Link, Stack, Typography} from '@mui/material';
+
 const {useEffect} = require('react');
 const {useIterator} = require('../hooks/useIterator');
 
@@ -12,13 +14,25 @@ export const RepoInfo = ({repositories, onSelect = f => f}) => {
 
     return (
         <div>
-            <div style={{display: "flex"}}>
-                <button onClick={previous}>&lt;</button>
-                <p>{name}</p>
-                <button onClick={next}>&gt;</button>
-            </div>
-            <p>Description : {description}</p>
-            {homepage && <p><a href={homepage} target="_blank" rel="noopener noreferrer">Check github pages</a></p>}
+            <Stack
+               alignItems="center"
+                justifyContent="space-between"
+                spacing={2}
+                direction="row">
+                <Button variant="contained" color="secondary" onClick={previous}>&lt;</Button>
+                <Typography variant="h4">
+                    <p>{name}</p>
+                </Typography>
+                <Button variant="contained" color="secondary" onClick={next}>&gt;</Button>
+            </Stack>
+            <Stack spacing={3}>
+                <div>Description : <p>{description}</p></div>
+            </Stack>
+                {homepage && <Link href={homepage} target="_blank" rel="noopener noreferrer" underline="hover">
+                    Check github page
+                </Link>}
+           
+
         </div>
     )
 }
