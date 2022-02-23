@@ -17,7 +17,6 @@ export const DetailedUser = ({data}) => {
                 <h1>{data.login}</h1>
             </Stack>
             <Typography variant="h6" component="div">
-                {/*{data.name && <p>{data.name}</p>}*/}
                 {data.location && <p>{data.location}</p>}
             </Typography>
             <UserRepositories

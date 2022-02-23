@@ -14,11 +14,12 @@ export const User = () => {
     return (
         <Card
             sx={{
-                width: 700,
+                maxWidth: 700,
                 p: 5,
                 margin: 'auto',
                 marginTop: 10,
                 flexGrow: 1,
+                // alignItems:'center',
             }}>
             <Stack alignItems="center"
                    spacing={5}>
