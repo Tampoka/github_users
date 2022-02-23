@@ -5,7 +5,7 @@ import {Fetch} from '../common/Fetch';
 import {Card, Stack} from '@mui/material';
 
 export const User = () => {
-    const [login, setLogin] = useState('PharaohKJ')
+    const [login, setLogin] = useState('Tampoka')
 
     const onSearchHandler = (searchValue) => {
         setLogin(searchValue)
@@ -14,12 +14,11 @@ export const User = () => {
     return (
         <Card
             sx={{
-                maxWidth: 700,
+                maxWidth: '80vw',
                 p: 5,
                 margin: 'auto',
                 marginTop: 10,
                 flexGrow: 1,
-                // alignItems:'center',
             }}>
             <Stack alignItems="center"
                    spacing={5}>

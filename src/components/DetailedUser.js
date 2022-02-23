@@ -1,6 +1,6 @@
 import React from 'react';
 import {UserRepositories} from './UserRepositories';
-import {Avatar, Box, CardHeader, Stack, Typography} from '@mui/material';
+import {Avatar, Box, Stack, Typography} from '@mui/material';
 
 
 export const DetailedUser = ({data}) => {
@@ -9,7 +9,8 @@ export const DetailedUser = ({data}) => {
             <Stack
                 direction="row"
                 alignItems="center"
-                spacing={5}>
+                justifyContent="center"
+                spacing={8}>
                 <Avatar sx={{width: 200, height: 200, objectFit: 'contain'}} variant="circular"
                         src={data.avatar_url}>
                 </Avatar>
@@ -17,7 +18,7 @@ export const DetailedUser = ({data}) => {
                 <h1>{data.login}</h1>
             </Stack>
             <Typography variant="h6" component="div">
-                {data.location && <p>{data.location}</p>}
+                {data.location && <p style={{marginLeft:50}}>{data.location}</p>}
             </Typography>
             <UserRepositories
                 login={data.login}

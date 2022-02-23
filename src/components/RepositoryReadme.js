@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useState} from 'react';
 import ReactMarkdown from "react-markdown";
+import {Box} from '@mui/material';
 
 export const RepositoryReadme = ({repo, login}) => {
     const [loading, setLoading] = useState(false)
@@ -18,7 +19,7 @@ export const RepositoryReadme = ({repo, login}) => {
     }, [])
 
     useEffect(() => {
-        if (!repo || login) return
+        if (!repo || !login) return
         loadReadme(login, repo).catch(setError)
     }, [repo])
 
@@ -27,7 +28,8 @@ export const RepositoryReadme = ({repo, login}) => {
     }
     if (loading) return <p>Loading...</p>
     return (
-        <ReactMarkdown children={markdown}/>
-    );
+        <Box>
+            <ReactMarkdown children={markdown}/>
+        </Box>);
 };
 

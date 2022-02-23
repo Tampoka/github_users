@@ -10,6 +10,7 @@ export const UserRepositories = ({login, onSelect = f => f}) => {
             renderSuccess={({data}) => (
                 <RepoMenu
                     repositories={data}
+                    login={login}
                     onSelect={onSelect}
                 />
             )}
