@@ -17,7 +17,7 @@ import {UserRepositories} from './components/UserRepositories';
 import {RepositoryReadme} from './components/RepositoryReadme';
 import {Search} from './common/Search';
 import {client, query} from './graphql/query';
-import {List} from './components/List';
+import {MyList} from './components/MyList';
 import {useToggle} from './hooks/useToggle';
 import {Agreement} from './components/Agreement';
 
@@ -99,7 +99,7 @@ function App() {
                 <Button variant="outlined" sx={{marginTop: 2}}><Typography variant="h6" onClick={toggleShowList}>
                     Show list of user's repositories</Typography></Button>
                 {showList
-                    ? <List data={userData.repositories.nodes} renderItem={repo => <span>{repo.name}</span>}/>
+                    ? <MyList data={userData.repositories.nodes} renderItem={repo => <span>{repo.name}</span>}/>
                     : <RepositoryReadme login={login} repo={repo}/>}
             </Paper>
         </Box>);

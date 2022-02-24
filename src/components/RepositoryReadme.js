@@ -37,7 +37,7 @@ export const RepositoryReadme = ({repo, login}) => {
 
     return (
         <Box sx={{border: '3px solid white', padding: 3, marginTop: 3}}>
-            <Chip label='Readme' color='success'>Readme</Chip>
+            <Chip label='Readme' color='success'/>
             <ReactMarkdown children={markdown ? markdown : ""}/>
         </Box>);
 };

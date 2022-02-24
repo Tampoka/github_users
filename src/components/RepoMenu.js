@@ -30,8 +30,10 @@ export const RepoMenu = ({repositories, selected, onSelect = f => f}) => {
                 <Button variant="contained" color="secondary" onClick={next}>&gt;</Button>
             </Stack>
             <Stack spacing={3}>
-                {description && <div style={{marginLeft:30}}><Chip label='Description' color='success'>Description</Chip>
-                    <p>{description}</p>
+                {description && <div style={{marginLeft: 30}}><Chip label='Description' color='success'/>
+                    <Typography variant="h6" sx={{color:'#C207FF'}}>
+                        <p>{description}</p>
+                    </Typography>
                 </div>}
             </Stack>
             {homepage && <Button variant="outlined">
