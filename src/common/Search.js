@@ -4,7 +4,7 @@ import {Button, Stack, TextField} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 export const Search = ({ value, onSearch = f => f}) => {
-    const [searchProps, resetSearch] = useInput(value)
+    const [searchProps, resetSearch] = useInput("")
 
     const onSearchHandler = () => {
         onSearch(searchProps.value)

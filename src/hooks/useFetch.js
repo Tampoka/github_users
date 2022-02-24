@@ -1,18 +1,28 @@
 import {useEffect, useState} from 'react';
+import {useMountedRef} from './useMountedRef';
 
 export function useFetch(uri) {
     const [data, setData] = useState()
     const [error, setError] = useState()
     const [loading, setLoading] = useState(false)
 
+    const mounted = useMountedRef()
+
     useEffect(() => {
         if (!uri) return;
         setLoading(true)
         fetch(uri)
+            .then(data => {
+                if (!mounted.current) throw new Error("Component is not mounted")
+                return data
+            })
             .then(data => data.json())
             .then(setData)
             .then(() => setLoading(false))
-            .catch(setError);
+            .catch(error => {
+                if (!mounted.current) return
+                setError(error)
+            });
     }, [uri])
 
     return {
