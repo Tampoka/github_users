@@ -12,10 +12,13 @@ import {
     Typography,
     useScrollTrigger
 } from '@mui/material';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {UserRepositories} from './components/UserRepositories';
 import {RepositoryReadme} from './components/RepositoryReadme';
 import {Search} from './common/Search';
+import {client, query} from './graphql/query';
+import {List} from './components/List';
+import {useToggle} from './hooks/useToggle';
 
 function HideOnScroll(props) {
     const {children, window} = props;
@@ -33,17 +36,28 @@ function HideOnScroll(props) {
 function App() {
     const [login, setLogin] = useState("Tampoka")
     const [repo, setRepo] = useState("Todo")
+    const [userData, setUserData] = useState();
+    const [showList, toggleShowList] = useToggle(false);
 
-    const handleSearch=(login)=>{
-        if(login) return setLogin(login)
+
+    const handleSearch = (login) => {
+        if (login) return setLogin(login)
         setLogin('')
         setRepo('')
     }
 
+    useEffect(() => {
+        client
+            .request(query, {login})
+            .then(({user}) => user)
+            .then(setUserData)
+            .catch(console.error);
+    }, [client, query, login]);
+    console.log(userData)
     if (!login) return (
         <Stack alignItems='center'
                paddingTop={8}>
-            <Search  onSearch={handleSearch} value={login}/>
+            <Search onSearch={handleSearch} value={login}/>
         </Stack>
     )
 
@@ -70,12 +84,15 @@ function App() {
                 }}>
                 <Stack alignItems='center'
                        paddingTop={8}>
-                    <Search  onSearch={handleSearch} value={login}/>
+                    <Search onSearch={handleSearch} value={login}/>
                 </Stack>
                 <User login={login}/>
                 <UserRepositories login={login} repo={repo} onSelect={setRepo}/>
-                <Button variant="outlined" sx={{marginTop:2}}><Typography variant="h6">Show list of user's repositories</Typography></Button>
-                <RepositoryReadme login={login} repo={repo}/>
+                <Button variant="outlined" sx={{marginTop: 2}}><Typography variant="h6" onClick={toggleShowList}>
+                    Show list of user's repositories</Typography></Button>
+                {showList
+                    ? <List data={userData.repositories.nodes} renderItem={repo => <span>{repo.name}</span>}/>
+                    : <RepositoryReadme login={login} repo={repo}/>}
             </Paper>
         </Box>);
 }

@@ -8,7 +8,7 @@ export const RepositoryReadme = ({repo, login}) => {
     const [error, setError] = useState("")
     const [markdown, setMarkdown] = useState("")
 
-    const mounted=useMountedRef()
+    const mounted = useMountedRef()
 
     const loadReadme = useCallback(async (login, repo) => {
         setLoading(true)
@@ -17,10 +17,10 @@ export const RepositoryReadme = ({repo, login}) => {
             .then(res => res.json())
         const markdown = await fetch(download_url)
             .then(res => res.text())
-       if(mounted.current) {
-           setMarkdown(markdown)
-           setLoading(false)
-       }
+        if (mounted.current) {
+            setMarkdown(markdown)
+            setLoading(false)
+        }
     }, [])
 
     useEffect(() => {
@@ -32,9 +32,11 @@ export const RepositoryReadme = ({repo, login}) => {
         return <pre>{JSON.stringify(error, null, 2)}</pre>;
     }
     if (loading) return <p>Loading...</p>
+
+    if (!markdown) return <p>No Readme file found...</p>
+
     return (
-        <Box sx={{border:'3px solid white',padding:3,marginTop:3}}>
-            <ReactMarkdown children={markdown?markdown:""}/>
+        <Box sx={{border: '3px solid white', padding: 3, marginTop: 3}}>
+            <ReactMarkdown children={markdown ? markdown : ""}/>
         </Box>);
 };
-
