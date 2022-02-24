@@ -22,6 +22,7 @@ export function useFetch(uri) {
             .catch(error => {
                 if (!mounted.current) return
                 setError(error)
+                throw new Error(error.message)
             });
     }, [uri])
 
