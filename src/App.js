@@ -1,6 +1,17 @@
 import './App.css';
 import {User} from './components/User';
-import {AppBar, Box, CssBaseline, Paper, Slide, Stack, Toolbar, Typography, useScrollTrigger} from '@mui/material';
+import {
+    AppBar,
+    Box,
+    Button,
+    CssBaseline,
+    Paper,
+    Slide,
+    Stack,
+    Toolbar,
+    Typography,
+    useScrollTrigger
+} from '@mui/material';
 import React, {useState} from 'react';
 import {UserRepositories} from './components/UserRepositories';
 import {RepositoryReadme} from './components/RepositoryReadme';
@@ -63,6 +74,7 @@ function App() {
                 </Stack>
                 <User login={login}/>
                 <UserRepositories login={login} repo={repo} onSelect={setRepo}/>
+                <Button variant="outlined" sx={{marginTop:2}}><Typography variant="h6">Show list of user's repositories</Typography></Button>
                 <RepositoryReadme login={login} repo={repo}/>
             </Paper>
         </Box>);
