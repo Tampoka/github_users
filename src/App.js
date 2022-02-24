@@ -1,8 +1,10 @@
 import './App.css';
 import {User} from './components/User';
-import {AppBar, Box, CssBaseline, Fab, Paper, Slide, Toolbar, Typography, useScrollTrigger, Zoom} from '@mui/material';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import React from 'react';
+import {AppBar, Box, CssBaseline, Paper, Slide, Stack, Toolbar, Typography, useScrollTrigger} from '@mui/material';
+import React, {useState} from 'react';
+import {UserRepositories} from './components/UserRepositories';
+import {RepositoryReadme} from './components/RepositoryReadme';
+import {Search} from './common/Search';
 
 function HideOnScroll(props) {
     const {children, window} = props;
@@ -17,43 +19,28 @@ function HideOnScroll(props) {
     );
 }
 
-function ScrollTop(props) {
-    const {children, window} = props;
-    const trigger = useScrollTrigger({
-        target: window ? window() : undefined,
-        disableHysteresis: true,
-        threshold: 100,
-    });
-
-    const handleClick = (event) => {
-        const anchor = (event.target.ownerDocument || document).querySelector(
-            '#back-to-top-anchor',
-        );
-        if (anchor) {
-            anchor.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-            });
-        }
-    };
-    return (
-        <Zoom in={trigger}>
-            <Box
-                onClick={handleClick}
-                role="presentation"
-                sx={{position: 'fixed', bottom: 16, right: 16}}>
-                {children}
-            </Box>
-        </Zoom>
-    );
-}
-
 function App() {
+    const [login, setLogin] = useState("Tampoka")
+    const [repo, setRepo] = useState("Todo")
+
+    const handleSearch=(login)=>{
+        if(login) return setLogin(login)
+        setLogin('')
+        setRepo('')
+    }
+
+    if (!login) return (
+        <Stack alignItems='center'
+               paddingTop={8}>
+            <Search  onSearch={handleSearch} value={login}/>
+        </Stack>
+    )
+
     return (
         <Box sx={{flexGrow: 1}}>
             <CssBaseline/>
             <HideOnScroll>
-                <AppBar color='secondary' >
+                <AppBar color='secondary'>
                     <Toolbar id="back-to-top-anchor">
                         <Typography variant="h6" component="div">
                             Logo
@@ -70,12 +57,13 @@ function App() {
                     margin: 'auto',
                     backgroundColor: '#ddebff'
                 }}>
-                <User/>
-                <ScrollTop >
-                    <Fab color="secondary" size="small" aria-label="scroll back to top">
-                        <KeyboardArrowUpIcon/>
-                    </Fab>
-                </ScrollTop>
+                <Stack alignItems='center'
+                       paddingTop={8}>
+                    <Search  onSearch={handleSearch} value={login}/>
+                </Stack>
+                <User login={login}/>
+                <UserRepositories login={login} repo={repo} onSelect={setRepo}/>
+                <RepositoryReadme login={login} repo={repo}/>
             </Paper>
         </Box>);
 }
