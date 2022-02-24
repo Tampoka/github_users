@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {useIterator} from '../hooks/useIterator';
-import {Button, Link, Stack, Typography} from '@mui/material';
+import {Button, Chip, Link, Stack, Typography} from '@mui/material';
 
-export const RepoMenu = ({repositories, selected, onSelect = f => f, login}) => {
+export const RepoMenu = ({repositories, selected, onSelect = f => f}) => {
     const [{name, description, homepage}, previous, next] = useIterator(repositories,
         selected
             ? repositories.findIndex(repo => repo.name === selected)
@@ -30,7 +30,7 @@ export const RepoMenu = ({repositories, selected, onSelect = f => f, login}) => 
                 <Button variant="contained" color="secondary" onClick={next}>&gt;</Button>
             </Stack>
             <Stack spacing={3}>
-                {description && <div>Description :
+                {description && <div style={{marginLeft:30}}><Chip label='Description' color='success'>Description</Chip>
                     <p>{description}</p>
                 </div>}
             </Stack>

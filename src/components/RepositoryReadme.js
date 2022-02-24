@@ -1,6 +1,6 @@
-import {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import ReactMarkdown from "react-markdown";
-import {Box} from '@mui/material';
+import {Box, Chip} from '@mui/material';
 import {useMountedRef} from '../hooks/useMountedRef';
 
 export const RepositoryReadme = ({repo, login}) => {
@@ -37,6 +37,7 @@ export const RepositoryReadme = ({repo, login}) => {
 
     return (
         <Box sx={{border: '3px solid white', padding: 3, marginTop: 3}}>
+            <Chip label='Readme' color='success'>Readme</Chip>
             <ReactMarkdown children={markdown ? markdown : ""}/>
         </Box>);
 };
