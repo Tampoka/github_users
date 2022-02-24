@@ -1,9 +1,8 @@
 import {Fetch} from '../common/Fetch';
-import {RepoInfo} from './RepoInfo';
-import RepoMenu from './RepoMenu';
+import {RepoMenu} from './RepoMenu';
 
 
-export const UserRepositories = ({login, onSelect = f => f}) => {
+export const UserRepositories = ({login, repo,onSelect = f => f}) => {
     return (
         <Fetch
             uri={`https://api.github.com/users/${login}/repos`}
@@ -12,6 +11,7 @@ export const UserRepositories = ({login, onSelect = f => f}) => {
                     repositories={data}
                     login={login}
                     onSelect={onSelect}
+                    selected={repo}
                 />
             )}
         />

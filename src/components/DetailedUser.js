@@ -1,5 +1,4 @@
 import React from 'react';
-import {UserRepositories} from './UserRepositories';
 import {Avatar, Box, Stack, Typography} from '@mui/material';
 
 
@@ -17,13 +16,9 @@ export const DetailedUser = ({data}) => {
 
                 <h1>{data.login}</h1>
             </Stack>
-            <Typography variant="h6" component="div">
-                {data.location && <p style={{marginLeft:50}}>{data.location}</p>}
+            <Typography variant="h6" component="div" >
+                {data.location && <p >{data.location}</p>}
             </Typography>
-            <UserRepositories
-                login={data.login}
-                onSelect={repoName => console.log(`${repoName} selected`)}
-            />
         </Box>
     )
 }

@@ -1,15 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {DetailedUser} from './DetailedUser';
-import {Search} from '../common/Search';
 import {Fetch} from '../common/Fetch';
 import {Card, Stack} from '@mui/material';
 
-export const User = () => {
-    const [login, setLogin] = useState('Tampoka')
-
-    const onSearchHandler = (searchValue) => {
-        setLogin(searchValue)
-    }
+export const User = ({login}) => {
 
     return (
         <Card
@@ -17,12 +11,11 @@ export const User = () => {
                 maxWidth: '80vw',
                 p: 5,
                 margin: 'auto',
-                marginTop: 10,
+                marginTop: 5,
                 flexGrow: 1,
             }}>
             <Stack alignItems="center"
                    spacing={5}>
-            <Search placeholder={'GitHub user name'} onSearch={onSearchHandler}/>
             <Fetch
                 uri={login ? `https://api.github.com/users/${login}` : ''}
                 renderSuccess={DetailedUser}/>

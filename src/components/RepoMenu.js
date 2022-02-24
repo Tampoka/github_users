@@ -1,12 +1,48 @@
-import React from 'react';
-import {RepoInfo} from './RepoInfo';
+import React, {useEffect} from 'react';
+import {useIterator} from '../hooks/useIterator';
+import {Button, Link, Stack, Typography} from '@mui/material';
 
-const RepoMenu = ({repositories, selected, onSelect = f => f, login}) => {
+export const RepoMenu = ({repositories, selected, onSelect = f => f, login}) => {
+    const [{name, description, homepage}, previous, next] = useIterator(repositories,
+        selected
+            ? repositories.findIndex(repo => repo.name === selected)
+            : null)
+
+    useEffect(() => {
+        if (!name) return
+        onSelect(name)
+    }, [name])
+
     if (!repositories.length) return <p>No repositories found...</p>
 
-    return <RepoInfo repositories={repositories}
-                     onSelect={onSelect}
-                     login={login}/>
-};
 
-export default RepoMenu;
+    return (
+        <div>
+            <Stack
+                alignItems="center"
+                justifyContent="space-between"
+                spacing={2}
+                direction="row">
+                <Button variant="contained" color="secondary" onClick={previous}>&lt;</Button>
+                <Typography variant="h4">
+                    <p style={{width: 400, textAlign: 'center', overflowWrap: "break-word"}}>{name}</p>
+                </Typography>
+                <Button variant="contained" color="secondary" onClick={next}>&gt;</Button>
+            </Stack>
+            <Stack spacing={3}>
+                {description && <div>Description :
+                    <p>{description}</p>
+                </div>}
+            </Stack>
+            {homepage && <Button variant="outlined">
+                <Link href={homepage} target="_blank" rel="noopener noreferrer" underline="hover">
+                    <Typography variant="h6">Check website</Typography>
+                </Link>
+            </Button>}
+            <div style={{width: '100%', textAlign: 'center', overflowWrap: "break-word"}}>
+            </div>
+        </div>
+    )
+
+
+};

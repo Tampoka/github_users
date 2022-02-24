@@ -28,8 +28,8 @@ export const RepositoryReadme = ({repo, login}) => {
     }
     if (loading) return <p>Loading...</p>
     return (
-        <Box>
-            <ReactMarkdown children={markdown}/>
+        <Box sx={{border:'3px solid white',padding:3,marginTop:3}}>
+            <ReactMarkdown children={markdown?markdown:""}/>
         </Box>);
 };
 
