@@ -20,7 +20,7 @@ export const client = new GraphQLClient(
     "https://api.github.com/graphql",
     {
         headers: {
-            Authorization: `Bearer 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`
+            Authorization: `Bearer ${process.env.REACT_APP_GRAPHQL_TOKEN}`
         }
     }
 );

@@ -19,6 +19,7 @@ import {Search} from './common/Search';
 import {client, query} from './graphql/query';
 import {List} from './components/List';
 import {useToggle} from './hooks/useToggle';
+import {Agreement} from './components/Agreement';
 
 function HideOnScroll(props) {
     const {children, window} = props;
@@ -38,6 +39,7 @@ function App() {
     const [repo, setRepo] = useState("Todo")
     const [userData, setUserData] = useState();
     const [showList, toggleShowList] = useToggle(false);
+    const [agree, setAgree] = useState(false);
 
 
     const handleSearch = (login) => {
@@ -51,9 +53,15 @@ function App() {
             .request(query, {login})
             .then(({user}) => user)
             .then(setUserData)
-            .catch(console.error);
+            .catch(error => {
+                throw new Error(error.message)
+            });
     }, [client, query, login]);
-    console.log(userData)
+
+
+    if (!agree)
+        return <Agreement onAgree={() => setAgree(true)}/>;
+
     if (!login) return (
         <Stack alignItems='center'
                paddingTop={8}>
