@@ -20,6 +20,8 @@ import {client, query} from './graphql/query';
 import {MyList} from './components/MyList';
 import {useToggle} from './hooks/useToggle';
 import {Agreement} from './components/Agreement';
+import {ErrorBoundary} from './common/ErrorBoundary';
+import {ErrorScreen} from './common/ErrorScreen/ErrorScreen';
 
 function HideOnScroll(props) {
     const {children, window} = props;
@@ -57,7 +59,6 @@ function App() {
                 throw new Error(error.message)
             });
     }, [client, query, login]);
-
 
     if (!agree)
         return <Agreement onAgree={() => setAgree(true)}/>;
@@ -99,7 +100,8 @@ function App() {
                 <Button variant="outlined" sx={{marginTop: 2}}><Typography variant="h6" onClick={toggleShowList}>
                     Show list of user's repositories</Typography></Button>
                 {showList
-                    ? <MyList data={userData.repositories.nodes} renderItem={repo => <span>{repo.name}</span>}/>
+                    ? <MyList data={userData.repositories.nodes}
+                              renderItem={repo => <span>{repo.name}</span>}/>
                     : <RepositoryReadme login={login} repo={repo}/>}
             </Paper>
         </Box>);

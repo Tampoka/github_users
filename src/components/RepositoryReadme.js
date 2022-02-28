@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import ReactMarkdown from "react-markdown";
 import {Box, Chip} from '@mui/material';
 import {useMountedRef} from '../hooks/useMountedRef';
+import {ErrorBoundary} from '../common/ErrorBoundary';
 
 export const RepositoryReadme = ({repo, login}) => {
     const [loading, setLoading] = useState(false)
@@ -36,8 +37,9 @@ export const RepositoryReadme = ({repo, login}) => {
     if (!markdown) return <p>No Readme file found...</p>
 
     return (
-        <Box sx={{border: '3px solid white', padding: 3, marginTop: 3}}>
+            <Box sx={{border: '3px solid white', padding: 3, marginTop: 3}}>
             <Chip label='Readme' color='success'/>
             <ReactMarkdown children={markdown ? markdown : ""}/>
-        </Box>);
+        </Box>
+    ) ;
 };
